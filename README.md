@@ -52,6 +52,8 @@ def get_valid_next_letters(trie, prefix) -> list:
 
 # HTML + TypeScript Implementation
 
+Available on: https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527
+
 <img width="970" height="788" alt="Screenshot 2026-06-09 002730" src="https://github.com/user-attachments/assets/0256b269-fcb3-44c2-a6e3-01e06e6a0594" />
 
 
