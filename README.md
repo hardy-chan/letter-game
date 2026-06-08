@@ -2,7 +2,7 @@
 
 A turn-based word formulation game played against an AI. 
 
-<img width="955" height="743" alt="Screenshot 2026-06-08 204102" src="https://github.com/user-attachments/assets/2514f05a-953e-47cc-b414-d077b717a9ab" />
+<img width="935" height="559" alt="Screenshot 2026-06-08 204452" src="https://github.com/user-attachments/assets/61695930-5f38-4fcf-8711-1c6be0717d4d" />
 
 # Performance Optimization (Trie)
 
