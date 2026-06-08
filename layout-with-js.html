@@ -1,0 +1,191 @@
+<!-- 1. THE VISUAL INTERFACE LAYER (HTML) -->
+<div id="wp-game-container" style="max-width: 500px; margin: 20px auto; padding: 25px; border: 2px solid #222; border-radius: 12px; font-family: sans-serif; background-color: #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+    <h3 style="margin-top: 0; text-align: center; color: #111;">🔤 The Letter Game</h3>
+    <p style="font-size: 14px; line-height: 1.5; color: #555; text-align: center;">Take turns picking letters from A to Z. Valid English words must be kept alive!</p>
+    
+    <div style="margin: 15px 0; text-align: center; background: #f7f7f7; padding: 12px; border-radius: 8px;">
+        <label style="font-weight: 600; font-size: 13px;">Dictionary:</label>
+        <select id="wp-dict-select" style="padding: 5px 10px; margin-left: 4px; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="1">Standard (words_alpha.txt)</option>
+            <option value="2">Common (enable1_words.txt)</option>
+        </select>
+
+        <label style="font-weight: 600; font-size: 13px; margin-left: 10px;">AI:</label>
+        <select id="wp-difficulty" style="padding: 5px 10px; margin-left: 4px; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="1">Easy</option>
+            <option value="2" selected>Hard</option>
+        </select>
+        <button id="wp-start-btn" style="padding: 6px 14px; margin-left: 10px; background-color: #0073aa; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Start Game</button>
+    </div>
+
+    <div id="wp-game-board" style="display: none; border-top: 1px solid #eee; padding-top: 20px; text-align: center;">
+        <div id="wp-word-display" style="font-size: 32px; color: #d63638; letter-spacing: 4px; font-weight: 800; min-height: 40px; margin-bottom: 10px;">-</div>
+        <p id="wp-game-status" style="color: #444; font-style: italic; font-size: 14px; margin-bottom: 20px;">Your turn! Type a single letter.</p>
+        
+        <div id="wp-input-area" style="margin-top: 15px;">
+            <input type="text" id="wp-user-letter" maxlength="1" style="width: 50px; text-align: center; padding: 8px; font-size: 20px; border: 2px solid #ddd; border-radius: 6px; font-weight: bold; text-transform: uppercase;" autocomplete="off">
+            <button id="wp-submit-letter" style="padding: 10px 20px; background-color: #46b450; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-left: 8px;">Submit</button>
+        </div>
+    </div>
+
+    <div id="wp-score-board" style="margin-top: 25px; font-size: 14px; border-top: 1px solid #eee; padding-top: 15px; display: flex; justify-content: space-around; color: #333;">
+        <span>👤 <strong>You:</strong> <span id="wp-player-wins" style="font-weight: bold; color: #46b450;">0</span></span>
+        <span>🤖 <strong>AI:</strong> <span id="wp-computer-wins" style="font-weight: bold; color: #d63638;">0</span></span>
+    </div>
+</div>
+
+<!-- 2. THE BACKGROUND LOGIC ENGINE LAYER (YOUR COMPILED JAVASCRIPT) -->
+<script>
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+(() => {
+    let word_trie = {};
+    let word_so_far = "";
+    let player_wins = 0;
+    let computer_wins = 0;
+    const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    const repo_base_url = "https://rawcdn.githack.com/hardy-chan/letter_game/main/";
+    const dict_urls = {
+        "1": repo_base_url + "words_alpha.txt",
+        "2": repo_base_url + "enable1_words.txt"
+    };
+    function build_trie(word_list) {
+        const trie = {};
+        for (const word of word_list) {
+            let current_node = trie;
+            const clean_word = word.toLowerCase().trim();
+            if (!clean_word)
+                continue;
+            for (const char of clean_word) {
+                if (!current_node[char]) {
+                    current_node[char] = {};
+                }
+                current_node = current_node[char];
+            }
+        }
+        return trie;
+    }
+    function prefix_exists(trie, prefix) {
+        let current_node = trie;
+        for (const char of prefix) {
+            if (!current_node[char])
+                return false;
+            current_node = current_node[char];
+        }
+        return true;
+    }
+    function get_valid_next_letters(trie, prefix) {
+        let current_node = trie;
+        for (const char of prefix) {
+            if (!current_node[char])
+                return [];
+            current_node = current_node[char];
+        }
+        return Object.keys(current_node);
+    }
+    const start_btn = document.getElementById('wp-start-btn');
+    const game_board = document.getElementById('wp-game-board');
+    const word_display = document.getElementById('wp-word-display');
+    const game_status = document.getElementById('wp-game-status');
+    const user_letter_input = document.getElementById('wp-user-letter');
+    const submit_btn = document.getElementById('wp-submit-letter');
+    const difficulty_select = document.getElementById('wp-difficulty');
+    const dict_select = document.getElementById('wp-dict-select');
+    start_btn.addEventListener('click', () => __awaiter(void 0, void 0, void 0, function* () {
+        const dict_choice = dict_select.value;
+        game_status.textContent = "Fetching remote dictionary from GitHub... Please wait.";
+        start_btn.disabled = true;
+        try {
+            const response = yield fetch(dict_urls[dict_choice]);
+            if (!response.ok)
+                throw new Error("Network connection failure reaching dictionary files.");
+            const raw_text = yield response.text();
+            const word_list = raw_text.split(/\r?\n/);
+            word_trie = build_trie(word_list);
+            word_so_far = "";
+            word_display.textContent = "-";
+            game_status.textContent = "Dictionary loaded successfully! Your turn, pick a letter.";
+            game_board.style.display = 'block';
+            user_letter_input.disabled = false;
+            submit_btn.disabled = false;
+            user_letter_input.focus();
+        }
+        catch (error) {
+            game_status.textContent = "Error down-streaming tracking data assets from your GitHub branch.";
+            console.error(error);
+        }
+        finally {
+            start_btn.disabled = false;
+        }
+    }));
+    submit_btn.addEventListener('click', handle_turn);
+    user_letter_input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter')
+            handle_turn();
+    });
+    function handle_turn() {
+        const letter = user_letter_input.value.toLowerCase().trim();
+        user_letter_input.value = "";
+        if (letter.length !== 1 || !/[a-z]/.test(letter)) {
+            alert("Please provide a single valid character alphabet token (A-Z).");
+            return;
+        }
+        word_so_far += letter;
+        word_display.textContent = word_so_far.toUpperCase();
+        if (!prefix_exists(word_trie, word_so_far)) {
+            game_status.textContent = "No valid words can be formed! AI wins!";
+            computer_wins++;
+            const computer_wins_el = document.getElementById('wp-computer-wins');
+            if (computer_wins_el)
+                computer_wins_el.textContent = computer_wins.toString();
+            end_game();
+            return;
+        }
+        game_status.textContent = "AI calculation engine computing next turn...";
+        user_letter_input.disabled = true;
+        submit_btn.disabled = true;
+        setTimeout(() => {
+            const diff = difficulty_select.value;
+            let chosen_char = "";
+            if (diff === "1") {
+                chosen_char = alphabet[Math.floor(Math.random() * alphabet.length)];
+            }
+            else {
+                const valid_choices = get_valid_next_letters(word_trie, word_so_far);
+                if (valid_choices.length > 0) {
+                    chosen_char = valid_choices[Math.floor(Math.random() * valid_choices.length)];
+                }
+                else {
+                    chosen_char = alphabet[Math.floor(Math.random() * alphabet.length)];
+                }
+            }
+            word_so_far += chosen_char;
+            word_display.textContent = word_so_far.toUpperCase();
+            game_status.textContent = `AI dropped letter: "${chosen_char.toUpperCase()}". Your turn!`;
+            user_letter_input.disabled = false;
+            submit_btn.disabled = false;
+            user_letter_input.focus();
+            if (!prefix_exists(word_trie, word_so_far)) {
+                game_status.textContent = "No valid words can be formed! You win! 🎉";
+                player_wins++;
+                const player_wins_el = document.getElementById('wp-player-wins');
+                if (player_wins_el)
+                    player_wins_el.textContent = player_wins.toString();
+                end_game();
+            }
+        }, 500);
+    }
+    function end_game() {
+        user_letter_input.disabled = true;
+        submit_btn.disabled = true;
+    }
+})();
+</script>

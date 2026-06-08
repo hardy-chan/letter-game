@@ -1,0 +1,34 @@
+<div id="wp-game-container" style="max-width: 500px; margin: 20px auto; padding: 25px; border: 2px solid #222; border-radius: 12px; font-family: sans-serif; background-color: #ffffff; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+    <h3 style="margin-top: 0; text-align: center; color: #111;">🔤 The Letter Game</h3>
+    <p style="font-size: 14px; line-height: 1.5; color: #555; text-align: center;">Take turns picking letters from A to Z. Valid English words must be kept alive!</p>
+    
+    <div style="margin: 15px 0; text-align: center; background: #f7f7f7; padding: 12px; border-radius: 8px;">
+        <label style="font-weight: 600; font-size: 13px;">Dictionary:</label>
+        <select id="wp-dict-select" style="padding: 5px 10px; margin-left: 4px; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="1">Standard (words_alpha.txt)</option>
+            <option value="2">Common (enable1_words.txt)</option>
+        </select>
+
+        <label style="font-weight: 600; font-size: 13px; margin-left: 10px;">AI:</label>
+        <select id="wp-difficulty" style="padding: 5px 10px; margin-left: 4px; border-radius: 4px; border: 1px solid #ccc;">
+            <option value="1">Easy</option>
+            <option value="2" selected>Hard</option>
+        </select>
+        <button id="wp-start-btn" style="padding: 6px 14px; margin-left: 10px; background-color: #0073aa; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Start Game</button>
+    </div>
+
+    <div id="wp-game-board" style="display: none; border-top: 1px solid #eee; padding-top: 20px; text-align: center;">
+        <div id="wp-word-display" style="font-size: 32px; color: #d63638; letter-spacing: 4px; font-weight: 800; min-height: 40px; margin-bottom: 10px;">-</div>
+        <p id="wp-game-status" style="color: #444; font-style: italic; font-size: 14px; margin-bottom: 20px;">Your turn! Type a single letter.</p>
+        
+        <div id="wp-input-area" style="margin-top: 15px;">
+            <input type="text" id="wp-user-letter" maxlength="1" style="width: 50px; text-align: center; padding: 8px; font-size: 20px; border: 2px solid #ddd; border-radius: 6px; font-weight: bold; text-transform: uppercase;" autocomplete="off">
+            <button id="wp-submit-letter" style="padding: 10px 20px; background-color: #46b450; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-left: 8px;">Submit</button>
+        </div>
+    </div>
+
+    <div id="wp-score-board" style="margin-top: 25px; font-size: 14px; border-top: 1px solid #eee; padding-top: 15px; display: flex; justify-content: space-around; color: #333;">
+        <span>👤 <strong>You:</strong> <span id="wp-player-wins" style="font-weight: bold; color: #46b450;">0</span></span>
+        <span>🤖 <strong>AI:</strong> <span id="wp-computer-wins" style="font-weight: bold; color: #d63638;">0</span></span>
+    </div>
+</div>
