@@ -20,7 +20,7 @@ Using **PyInstaller** under AI assistance, I compiled the core Python game engin
 * **Independent Runtime:** Users do not need to install Python, libraries, or any code engines on their computer to run the game application.
 
 
-# Web deployment
+# Web Deployments
 
 For instant availablity on a browser, the code is rewritten from backend **Python** to frontend **TypeScript** (logic) + **HTML5** (structure) + **CSS3** (styling) under AI assistance.
 
