@@ -11,7 +11,7 @@ Written originally in Python, optimized and re-implemented on webpage in HTML wi
 
 Using **PyInstaller** under AI assistance, I compiled the core Python game engine into a standalone Windows executable (`.exe`) console application.
 
-* **Available on [**GitHub Releases**](https://github.com/hardy-chan/letter-game/releases)**
+* **Downloadable on [**GitHub Releases**](https://github.com/hardy-chan/letter-game/releases)**
 * **How to Install:** 
   1. Download the **`AddLetter.zip`** folder from the latest release.
   2. Right-click the folder and choose **"Extract All"** (Unzip) to open it.
@@ -20,9 +20,11 @@ Using **PyInstaller** under AI assistance, I compiled the core Python game engin
 * **Independent Runtime:** Users do not need to install Python, libraries, or any code engines on their computer to run the game application.
 
 
-# HTML + TypeScript Implementation
+# Web deployment
 
-Available on: https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527
+For instant availablity on a browser, the code is rewritten from backend Python to frontend TypeScript (logic) + HTML5 (structure) + CSS3 (styling) under AI assistance.
+
+* **Playable on [**GitHub**](https://hardy-chan.github.io/letter-game/) or alternatively on [**CodePen**](https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527)**
 
 <img width="970" height="788" alt="Screenshot 2026-06-09 002730" src="https://github.com/user-attachments/assets/0256b269-fcb3-44c2-a6e3-01e06e6a0594" />
 
