@@ -22,7 +22,7 @@ Using **PyInstaller** under AI assistance, I compiled the core Python game engin
 
 # Web deployment
 
-For instant availablity on a browser, the code is rewritten from backend Python to frontend TypeScript (logic) + HTML5 (structure) + CSS3 (styling) under AI assistance.
+For instant availablity on a browser, the code is rewritten from backend **Python** to frontend **TypeScript** (logic) + **HTML5** (structure) + **CSS3** (styling) under AI assistance.
 
 * **Playable on [**GitHub**](https://hardy-chan.github.io/letter-game/) or alternatively on [**CodePen**](https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527)**
 
