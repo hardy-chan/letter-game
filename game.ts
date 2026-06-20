@@ -77,7 +77,7 @@ interface TrieNode {
         start_btn.disabled = true;
 
         try {
-            // Asynchronously fetch the raw text from your GitHub repo stream
+            // Asynchronously fetch the raw text from GitHub repo stream
             const response = await fetch(dict_urls[dict_choice]);
             if (!response.ok) throw new Error("Network connection failure reaching dictionary files.");
             
@@ -98,7 +98,7 @@ interface TrieNode {
             submit_btn.disabled = false;
             user_letter_input.focus();
         } catch (error) {
-            game_status.textContent = "Error down-streaming tracking data assets from your GitHub branch.";
+            game_status.textContent = "Error down-streaming tracking data assets from GitHub branch.";
             console.error(error);
         } finally {
             start_btn.disabled = false;
