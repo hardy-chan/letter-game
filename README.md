@@ -24,7 +24,7 @@ Using **PyInstaller** under AI assistance, I compiled the core Python game engin
 
 For instant availablity on a browser, the code is rewritten from backend **Python** to frontend **TypeScript** (logic) + **HTML5** (structure) + **CSS3** (styling) under AI assistance.
 
-* **Playable on [**GitHub**](https://hardy-chan.github.io/letter-game/) or alternatively on [**CodePen**](https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527)**
+* Playable on [**GitHub**](https://hardy-chan.github.io/letter-game/) (or alternatively on [**CodePen**](https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527))
 
 <img width="970" height="788" alt="Screenshot 2026-06-09 002730" src="https://github.com/user-attachments/assets/0256b269-fcb3-44c2-a6e3-01e06e6a0594" />
 
