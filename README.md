@@ -1,10 +1,30 @@
 # LETTER GAME
 
-A turn-based word formulation game played against an AI. 
+A turn-based word formulation game played against computer. 
 
 Written originally in Python, optimized and re-implemented on webpage in HTML with TypeScript. Under AI assistance.
 
 <img width="935" height="559" alt="Screenshot 2026-06-08 204452" src="https://github.com/user-attachments/assets/61695930-5f38-4fcf-8711-1c6be0717d4d" />
+
+
+# Windows Desktop Application
+
+Using **PyInstaller** under AI assistance, I compiled the core Python game engine into a standalone Windows executable (`.exe`) console application.
+
+* **Available on [**GitHub Releases**](https://github.com/hardy-chan/letter-game/releases)**
+* **How to Install:** 
+  1. Download the **`AddLetter.zip`** folder from the latest release.
+  2. Right-click the folder and choose **"Extract All"** (Unzip) to open it.
+  3. Open the extracted folder and navigate into the **`\dist\AddLetter`** folder.
+  4. Double-click the `AddLetter.exe` file inside to play the terminal version of the game instantly!
+* **Independent Runtime:** Users do not need to install Python, libraries, or any code engines on their computer to run the game application.
+
+
+# HTML + TypeScript Implementation
+
+Available on: https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527
+
+<img width="970" height="788" alt="Screenshot 2026-06-09 002730" src="https://github.com/user-attachments/assets/0256b269-fcb3-44c2-a6e3-01e06e6a0594" />
 
 # Performance Optimization (Trie)
 
@@ -50,10 +70,5 @@ def get_valid_next_letters(trie, prefix) -> list:
     return list(current_node.keys())
 ```
 
-# HTML + TypeScript Implementation
-
-Available on: https://codepen.io/editor/hardychan/pen/019ea935-6f9d-7609-9c36-9550d9286527
-
-<img width="970" height="788" alt="Screenshot 2026-06-09 002730" src="https://github.com/user-attachments/assets/0256b269-fcb3-44c2-a6e3-01e06e6a0594" />
 
 
